@@ -25,6 +25,8 @@ public class VendasApplication {
 
             List<Cliente> todosCLientes = clientes.obterTodos();
             todosCLientes.forEach(System.out::println);
+
+
         };
 
     }
