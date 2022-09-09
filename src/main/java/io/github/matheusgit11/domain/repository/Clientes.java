@@ -43,11 +43,10 @@ public class Clientes {
 
     public List<Cliente> buscarPorNome(String nome){
         return jdbcTemplate.query(
-                SELECT_ALL.concat("where nome like ? "),
+                SELECT_ALL.concat(" where nome like ? "),
                 new Object[]{"%" + nome + "%"},
                 getClienteRowMapper());
     }
-
 
     public List<Cliente> obterTodos(){
         return jdbcTemplate.query(SELECT_ALL, getClienteRowMapper());
