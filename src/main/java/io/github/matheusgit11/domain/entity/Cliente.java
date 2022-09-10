@@ -1,13 +1,9 @@
 package io.github.matheusgit11.domain.entity;
 
-
-
-
-
 import javax.persistence.*;
 
-@Entity                   //considerar essa classe como uma entidade e registrar ela no banco de dados
-@Table(name = "cliente") //table serva se eu usar uma entidade diferente do nome da tabela e tambem outras definicoes , nao necessario para nosso exemplo
+@Entity
+@Table(name = "cliente")
 public class Cliente {
 
     @Id
