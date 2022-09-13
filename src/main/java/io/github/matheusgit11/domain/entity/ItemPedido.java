@@ -1,10 +1,25 @@
 package io.github.matheusgit11.domain.entity;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "item_pedido")
 public class ItemPedido {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
+
+    @ManyToOne // muitos itens pedidos para 1 pedido
+    @JoinColumn(name = "pedido_id")
     private Pedido pedido;
+
+    @ManyToOne
+    @JoinColumn(name = "produto_id")
     private Produto produto;
+
+    @Column
     private Integer quantidade;
 
     public Integer getId() {
