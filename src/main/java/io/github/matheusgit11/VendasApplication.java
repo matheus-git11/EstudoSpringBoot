@@ -9,8 +9,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.xml.bind.SchemaOutputResolver;
 import java.util.List;
 
 @SpringBootApplication
@@ -24,29 +22,29 @@ public class VendasApplication {
 
         return args -> {
             System.out.println("Salvando clientes");
-            clientes.salvar( new Cliente("Matheus"));
-            clientes.salvar( new Cliente("Trevor"));
+            clientes.save( new Cliente("Matheus"));
+            clientes.save( new Cliente("Trevor"));
 
-            List<Cliente> todosCLientes = clientes.obterTodos();
+            List<Cliente> todosCLientes = clientes.findAll();
             todosCLientes.forEach(System.out::println);
 
             System.out.println("Atualizando clientes");
             todosCLientes.forEach(c ->{
                 c.setNome(c.getNome()+" atualizado");
-                clientes.atualizar(c);
+                clientes.save(c);
             });
-            todosCLientes = clientes.obterTodos();
+            todosCLientes = clientes.findAll();
             todosCLientes.forEach(System.out::println);
 
             System.out.println("Buscando clientes");
-            clientes.buscarPorNome("evor").forEach(System.out::println);
+            clientes.findByNomeLike("evor").forEach(System.out::println);
 
             System.out.println("Deletando clientes");
-            clientes.obterTodos().forEach(c->{
-                clientes.deletar(c);
+            clientes.findAll().forEach(c->{
+                clientes.delete(c);
             });
 
-            todosCLientes = clientes.obterTodos();
+            todosCLientes = clientes.findAll();
             if(todosCLientes.isEmpty()){
                 System.out.println("Nao ha resultados para essa busca , esta vazio");
             }else{
