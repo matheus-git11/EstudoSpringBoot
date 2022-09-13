@@ -2,7 +2,6 @@ package io.github.matheusgit11.domain.repository;
 
 import io.github.matheusgit11.domain.entity.Cliente;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
