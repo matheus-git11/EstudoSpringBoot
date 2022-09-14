@@ -9,13 +9,14 @@ public class Cliente {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id") // serve para fazer a definicao das colunas do mesmo jeito que a anatocao Table , nao necessario para nosso exemplo mas bom lembrar
+    @Column(name = "id")
+    // serve para fazer a definicao das colunas do mesmo jeito que a anatocao Table , nao necessario para nosso exemplo mas bom lembrar
     private Integer id;
 
-    @Column(name = "nome" , length = 100)
+    @Column(name = "nome", length = 100)
     private String nome;
 
-    @OneToMany(mappedBy = "cliente")
+    @OneToMany(mappedBy = "cliente" , fetch = FetchType.LAZY) // o tipo lazy diz que ao carregar os clientes ele nao carrega os pedidos juntos
     private Set<Pedido> pedidos;
 
     public Set<Pedido> getPedidos() {
@@ -26,11 +27,12 @@ public class Cliente {
         this.pedidos = pedidos;
     }
 
-    public Cliente(){
+    public Cliente() {
 
     }
-    public Cliente(String nome){
-        this.nome= nome;
+
+    public Cliente(String nome) {
+        this.nome = nome;
     }
 
     public Cliente(Integer id, String nome) {
