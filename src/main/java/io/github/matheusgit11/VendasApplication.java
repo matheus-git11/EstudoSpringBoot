@@ -15,13 +15,6 @@ public class VendasApplication {
     public static void main(String[] args) {
         SpringApplication.run(VendasApplication.class, args);
     }
-    @Bean
-    public CommandLineRunner commandLineRunner (@Autowired Clientes clientes){
-        return args -> {
-            Cliente c = new Cliente(null , "Matheus");
-            clientes.save(c);
-        };
-    }
 
 }
 

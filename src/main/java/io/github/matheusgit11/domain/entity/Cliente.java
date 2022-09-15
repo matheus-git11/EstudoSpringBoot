@@ -1,5 +1,7 @@
 package io.github.matheusgit11.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -16,6 +18,9 @@ public class Cliente {
     @Column(name = "nome", length = 100)
     private String nome;
 
+    @Column(name = "cpf" , length = 11)
+    private String cpf;
+    @JsonIgnore
     @OneToMany(mappedBy = "cliente" , fetch = FetchType.LAZY) // o tipo lazy diz que ao carregar os clientes ele nao carrega os pedidos juntos
     private Set<Pedido> pedidos;
 
@@ -54,6 +59,14 @@ public class Cliente {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     @Override
