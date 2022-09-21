@@ -22,7 +22,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PedidoDTO {
+public class PedidoDTO { // objeto para representar o json passado ao criar um produto
 
     private Integer cliente;
     private BigDecimal total;

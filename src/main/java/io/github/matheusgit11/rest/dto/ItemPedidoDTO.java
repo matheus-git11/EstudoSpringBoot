@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ItemPedidoDTO {
+public class ItemPedidoDTO {  // objeto para representar o json passado ao criar um produto
     private Integer produto;
     private Integer quantidade;
 }
