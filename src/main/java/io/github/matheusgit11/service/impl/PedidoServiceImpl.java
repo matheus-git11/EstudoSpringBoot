@@ -4,10 +4,12 @@ import io.github.matheusgit11.domain.entity.Cliente;
 import io.github.matheusgit11.domain.entity.ItemPedido;
 import io.github.matheusgit11.domain.entity.Pedido;
 import io.github.matheusgit11.domain.entity.Produto;
+import io.github.matheusgit11.domain.enums.StatusPedido;
 import io.github.matheusgit11.domain.repository.Clientes;
 import io.github.matheusgit11.domain.repository.ItemsPedido;
 import io.github.matheusgit11.domain.repository.Pedidos;
 import io.github.matheusgit11.domain.repository.Produtos;
+import io.github.matheusgit11.exception.PedidoNaoEncontradoException;
 import io.github.matheusgit11.exception.RegraNegocioException;
 import io.github.matheusgit11.rest.dto.ItemPedidoDTO;
 import io.github.matheusgit11.rest.dto.PedidoDTO;
@@ -44,6 +46,7 @@ public class PedidoServiceImpl implements PedidoService {
         pedido.setTotal(dto.getTotal());
         pedido.setDataPedido(LocalDate.now());
         pedido.setCliente(cliente);
+        pedido.setStatus(StatusPedido.REALIZADO);
 
         List<ItemPedido> itemsPedido = converterItems(pedido, dto.getItems());
         repository.save(pedido);
@@ -77,16 +80,15 @@ public class PedidoServiceImpl implements PedidoService {
         return repository.findByIdFetchItens(id);
     }
 
-
-
-
-
-
-
-
-
-
-
+    @Override
+    @Transactional
+    public void atualizaStatus(Integer id, StatusPedido status) {
+        repository.findById(id)
+                  .map(pedido -> {
+                      pedido.setStatus(status);
+                      return repository.save(pedido);
+                  }).orElseThrow( () -> new PedidoNaoEncontradoException());
+    }
 
 
 }

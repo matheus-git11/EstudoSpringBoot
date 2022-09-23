@@ -2,16 +2,19 @@ package io.github.matheusgit11.rest.controller;
 
 import io.github.matheusgit11.domain.entity.ItemPedido;
 import io.github.matheusgit11.domain.entity.Pedido;
+import io.github.matheusgit11.domain.enums.StatusPedido;
+import io.github.matheusgit11.rest.dto.AtualizacaoStatusPedidoDTO;
 import io.github.matheusgit11.rest.dto.InformacaoItemPedidoDTO;
 import io.github.matheusgit11.rest.dto.InformacoesPedidoDTO;
 import io.github.matheusgit11.rest.dto.PedidoDTO;
 import io.github.matheusgit11.service.PedidoService;
+
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.format.DateTimeFormatter;
-import java.util.Collection;
+
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -42,6 +45,16 @@ public class PedidoController {
                 .orElseThrow(()-> new ResponseStatusException(NOT_FOUND,"Pedido nao encontrado"));
     }
 
+    @PatchMapping("{id}") //Diferente do put mapping em que voce nao tem que passar todos os dados
+    @ResponseStatus(NO_CONTENT)
+    public void updateStatus(@RequestBody AtualizacaoStatusPedidoDTO dto, @PathVariable Integer id){
+        String novoStatus = dto.getNovoStatus();
+        service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
+
+    }
+
+
+
     private InformacoesPedidoDTO converter(Pedido pedido){
            return InformacoesPedidoDTO
                     .builder()
@@ -50,6 +63,7 @@ public class PedidoController {
                     .cpf(pedido.getCliente().getCpf())
                     .nomeCliente(pedido.getCliente().getNome())
                     .total(pedido.getTotal())
+                    .status(pedido.getStatus().name())
                     .items(converter(pedido.getItens()))
                     .build();
 
