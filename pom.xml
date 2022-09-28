@@ -47,12 +47,14 @@
                 <artifactId>h2</artifactId>
             </dependency>
 
+            <!--Facilitar constructors , Get and set , etc -->
             <dependency>
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <scope>provided</scope>
             </dependency>
 
+            <!-- DevTools usado para LiveReload  -->
             <dependency>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-devtools</artifactId>
