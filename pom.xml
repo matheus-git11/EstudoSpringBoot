@@ -60,6 +60,19 @@
                 <artifactId>spring-boot-devtools</artifactId>
             </dependency>
 
+            <!-- Security  -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-security</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>org.jetbrains</groupId>
+                <artifactId>annotations</artifactId>
+                <version>RELEASE</version>
+                <scope>compile</scope>
+            </dependency>
+
+
         </dependencies>
 
         <build>
