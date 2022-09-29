@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable() // nao temos uma aplicacao web , estamos trabalhando com rest API
                 .authorizeRequests()
                     .antMatchers("/api/clientes/**")
-                        .authenticated()
+                        .permitAll()
                 .and()
                     .formLogin();
     }
