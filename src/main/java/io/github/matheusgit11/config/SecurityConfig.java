@@ -23,17 +23,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder())
                 .withUser("Fulano")
                 .password(passwordEncoder().encode("123"))
-                .roles("USER");
+                .roles("USER", "ADMIN");
     }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable() // nao temos uma aplicacao web , estamos trabalhando com rest API
+                .csrf().disable()
                 .authorizeRequests()
-                    .antMatchers("/api/clientes/**")
-                        .permitAll()
-                .and()
-                    .formLogin();
+                .antMatchers("/api/clientes/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/api/pedidos/**").hasAnyRole("USER","ADMIN")
+                .antMatchers("/api/produtos/**").hasRole("ADMIN")
+                .and().formLogin();
+
     }
 }
