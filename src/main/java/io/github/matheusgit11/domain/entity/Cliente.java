@@ -36,9 +36,6 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente" , fetch = FetchType.LAZY) // o tipo lazy diz que ao carregar os clientes ele nao carrega os pedidos juntos
     private Set<Pedido> pedidos;
 
-    public Cliente(String nome) {
-        this.nome = nome;
-    }
 
     public Cliente(Integer id, String nome) {
         this.id = id;

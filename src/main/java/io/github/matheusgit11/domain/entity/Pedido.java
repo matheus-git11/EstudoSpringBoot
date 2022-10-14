@@ -18,10 +18,11 @@ import java.util.List;
 @Entity
 @Table(name = "pedido")
 public class Pedido {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
     private Integer id;
-
 
     @ManyToOne // Varios pedidos para um cliente
     @JoinColumn(name = "cliente_id")
