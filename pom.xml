@@ -47,6 +47,12 @@
                 <artifactId>h2</artifactId>
             </dependency>
 
+            <!-- BANCO DE DADOS MYSQL -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+            </dependency>
+
             <!--Facilitar constructors , Get and set , etc -->
             <dependency>
                 <groupId>org.projectlombok</groupId>

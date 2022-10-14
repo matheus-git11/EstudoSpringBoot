@@ -17,7 +17,8 @@ import javax.validation.constraints.NotEmpty;
 public class Usuario {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Integer id;
 
     @Column
@@ -28,6 +29,6 @@ public class Usuario {
     @NotEmpty(message = "{campo.senha.obrigatorio}")
     private String senha;
 
-    @Column
+    @Column(name="flag_admin")
     private boolean admin;
 }
