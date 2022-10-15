@@ -23,15 +23,12 @@ import javax.validation.Valid;
 public class UsuarioController {
 
     private final UsuarioServiceImpl usuarioService;
-
     private final PasswordEncoder passwordEncoder;
-
     private final JwtService jwtService;
-
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Usuario salvar(@RequestBody @Valid Usuario usuario){
+    public Usuario salvar( @RequestBody @Valid Usuario usuario ){
         String senhaCriptografada = passwordEncoder.encode(usuario.getSenha());
         usuario.setSenha(senhaCriptografada);
         return usuarioService.salvar(usuario);
@@ -41,15 +38,12 @@ public class UsuarioController {
     public TokenDTO autenticar(@RequestBody CredenciaisDTO credenciais){
         try{
             Usuario usuario = Usuario.builder()
-                            .login(credenciais.getLogin())
-                            .senha(credenciais.getSenha()).build();
-
+                    .login(credenciais.getLogin())
+                    .senha(credenciais.getSenha()).build();
             UserDetails usuarioAutenticado = usuarioService.autenticar(usuario);
             String token = jwtService.gerarToken(usuario);
-            return new TokenDTO(usuario.getLogin(),token);
-
-
-        }catch (UsernameNotFoundException | SenhaInvalidaException e) {
+            return new TokenDTO(usuario.getLogin(), token);
+        } catch (UsernameNotFoundException | SenhaInvalidaException e ){
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, e.getMessage());
         }
     }

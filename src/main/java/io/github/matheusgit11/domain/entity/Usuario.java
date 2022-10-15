@@ -13,7 +13,7 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name="usuario")
+@Table(name="Usuario")
 public class Usuario {
 
     @Id
