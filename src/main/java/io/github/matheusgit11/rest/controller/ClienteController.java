@@ -50,6 +50,11 @@ public class ClienteController {
 
     @DeleteMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation("Deletar cliente pelo Id")
+    @ApiResponses({
+            @ApiResponse(code = 200 , message = "Cliente Deletado com sucesso"),
+            @ApiResponse(code = 204 , message = "Cliente Nao encontrado")
+    })
     public void delete(@PathVariable Integer id){
       clientes.findById(id)
               .map(clienteAchado -> {
@@ -60,6 +65,11 @@ public class ClienteController {
 
     @PutMapping("{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @ApiOperation("Atualizar cliente")
+    @ApiResponses({
+            @ApiResponse(code = 200 , message = "Cliente Atualizado com sucesso"),
+            @ApiResponse(code = 404 , message = "Cliente Nao encontrado")
+    })
     public void update(@PathVariable @Valid Integer id,
                        @RequestBody Cliente cliente){
 
@@ -73,6 +83,7 @@ public class ClienteController {
 
     }
     @GetMapping
+    @ApiOperation("Listar todos os clientes")
    public List<Cliente> find (Cliente filtro){
         ExampleMatcher matcher = ExampleMatcher
                                     .matching()

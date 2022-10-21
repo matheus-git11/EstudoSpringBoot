@@ -9,6 +9,10 @@ import io.github.matheusgit11.rest.dto.InformacoesPedidoDTO;
 import io.github.matheusgit11.rest.dto.PedidoDTO;
 import io.github.matheusgit11.service.PedidoService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -24,6 +28,7 @@ import static org.springframework.http.HttpStatus.*;
 
 @RestController
 @RequestMapping("/api/pedidos")
+@Api("Api Pedidos")
 public class PedidoController {
 
     private PedidoService service;
@@ -33,12 +38,22 @@ public class PedidoController {
     }
     @PostMapping
     @ResponseStatus(CREATED)
+    @ApiOperation("Salva um novo Pedido")
+    @ApiResponses({
+            @ApiResponse(code = 201 , message = "Pedido salvo com sucesso"),
+            @ApiResponse(code = 400 , message = "Erro de validacao")
+    })
     public Integer save(@RequestBody @Valid PedidoDTO dto){
        Pedido pedido = service.salvar(dto);
        return pedido.getId();
     }
 
     @GetMapping("{id}")
+    @ApiOperation("Obter Detalhes de um pedido")
+    @ApiResponses({
+            @ApiResponse(code = 200 , message = "Pedido encontrado com sucesso"),
+            @ApiResponse(code = 404 , message = "pedido nao encontrado para o ID informado")
+    })
     public InformacoesPedidoDTO getById(@PathVariable Integer id){
         return service
                 .obterPedidoCompleto(id)
@@ -48,6 +63,7 @@ public class PedidoController {
 
     @PatchMapping("{id}") //Diferente do put mapping em que voce nao tem que passar todos os dados
     @ResponseStatus(NO_CONTENT)
+    @ApiOperation("Atualizar status")
     public void updateStatus(@RequestBody AtualizacaoStatusPedidoDTO dto, @PathVariable Integer id){
         String novoStatus = dto.getNovoStatus();
         service.atualizaStatus(id, StatusPedido.valueOf(novoStatus));
